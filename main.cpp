@@ -37,7 +37,6 @@ struct hash_t {
    
     auto decrypt( ) {
         std::string decrypted_str( m_str );
-        std::string key( std::to_string( m_hash ) );
        
         for ( size_t i{ }; i < m_str.length( ); ++i ) {
             decrypted_str[ i ] = normalized_char( m_str[ i ], -int( m_hash ) );
