@@ -2,6 +2,7 @@
 #include <cstring>
 #include <vector>
 #include <iostream>
+#include <algorithm>
  
 static const char* const file_data =
 R"(BCYKUNCM 1718
@@ -14,13 +15,20 @@ EDLGDOCXZ 9297
 XWXEWNV 802)";
  
 char normalized_char( char in, int difference ) {
-    for ( int i{ }; i < std::abs( difference ); ++i ) {
-        in = difference < 0 ? in - 1 : in + 1;
-        if ( in < 65 ) { in = 90; }
-        if ( in > 90 ) { in = 65; }
+    int diff_normalized = difference % 26;
+    char ret = in + diff_normalized;
+    
+    if ( ret < 65 ) {
+        int diff = 65 - ret;
+        ret = 91 - diff;
+    }
+    
+    if ( ret > 90 ) {
+        int diff = ret - 90;
+        ret = 64 + diff;
     }
    
-    return in;
+    return ret;
 }
  
 struct hash_t {
